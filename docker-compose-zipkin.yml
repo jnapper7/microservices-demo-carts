@@ -2,7 +2,9 @@ version: '2'
 
 services:
   carts:
-    image: weaveworksdemos/carts
+    image: microservices-demo-carts
+    build: 
+        context: .
     hostname: carts
     restart: always
     cap_drop:
@@ -14,8 +16,7 @@ services:
       - /tmp:rw,noexec,nosuid
     environment:
       - reschedule=on-node-failure
-      - ZIPKIN_HOST=zipkin
-      - ZIPKIN_ENABLED=true
+      - SPRING_ZIPKIN_BASEURL=http://zipkin:9411/
     ports:
       - "8081:80"
   zipkin:
